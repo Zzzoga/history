@@ -1,29 +1,29 @@
-// gsap.utils.toArray(".hero__img").forEach((img, i) => {
+gsap.utils.toArray(".hero__img").forEach((img, i) => {
 
-//   // разные зоны движения, чтобы не пересекались
-//   const ranges = [
-//     { x: 40, y: 40 },
-//     { x: 50, y: 60 },
-//     { x: 60, y: 40 },
-//     { x: 45, y: 55 },
-//     { x: 35, y: 30 }
-//   ];
+  // разные зоны движения, чтобы не пересекались
+  const ranges = [
+    { x: 40, y: 40 },
+    { x: 50, y: 60 },
+    { x: 60, y: 40 },
+    { x: 45, y: 55 },
+    { x: 35, y: 30 }
+  ];
 
-//   const range = ranges[i] || { x: 40, y: 40 };
+  const range = ranges[i] || { x: 40, y: 40 };
 
-//   function float() {
-//     gsap.to(img, {
-//       x: gsap.utils.random(-range.x, range.x),
-//       y: gsap.utils.random(-range.y, range.y),
-//       rotation: gsap.utils.random(-3, 3),
-//       duration: gsap.utils.random(4, 7),
-//       ease: "sine.inOut",
-//       onComplete: float
-//     });
-//   }
+  function float() {
+    gsap.to(img, {
+      x: gsap.utils.random(-range.x, range.x),
+      y: gsap.utils.random(-range.y, range.y),
+      rotation: gsap.utils.random(-3, 3),
+      duration: gsap.utils.random(4, 7),
+      ease: "sine.inOut",
+      onComplete: float
+    });
+  }
 
-//   float();
-// });
+  float();
+});
 
 document.querySelectorAll(".project__item").forEach((card) => {
 
