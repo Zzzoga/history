@@ -1,28 +1,50 @@
-gsap.utils.toArray(".hero__img").forEach((img, i) => {
+const images = gsap.utils.toArray(".hero__img");
+const hero = document.querySelector(".hero");
 
-  // разные зоны движения, чтобы не пересекались
-  const ranges = [
-    { x: 40, y: 40 },
-    { x: 50, y: 60 },
-    { x: 60, y: 40 },
-    { x: 45, y: 55 },
-    { x: 35, y: 30 }
-  ];
+let centerX = hero.offsetWidth / 2;
+let centerY = hero.offsetHeight / 2;
 
-  const range = ranges[i] || { x: 40, y: 40 };
+// Увеличиваем радиус в 1.5 раза
+let radius = (Math.min(hero.offsetHeight, hero.offsetWidth) / 2 - 180) * 1.25;
 
-  function float() {
-    gsap.to(img, {
-      x: gsap.utils.random(-range.x, range.x),
-      y: gsap.utils.random(-range.y, range.y),
-      rotation: gsap.utils.random(-3, 3),
-      duration: gsap.utils.random(4, 7),
-      ease: "sine.inOut",
-      onComplete: float
+const total = images.length;
+
+// начальное распределение
+images.forEach((img, i) => {
+  const angle = (i / total) * Math.PI * 2;
+
+  const x = centerX + radius * Math.cos(angle) - img.offsetWidth / 2;
+  const y = centerY + radius * Math.sin(angle) - img.offsetHeight / 2;
+
+  gsap.set(img, { x, y });
+});
+
+let rotationObj = { angle: 0 };
+
+// ❗ скорость уменьшена в 2 раза (было 30 → стало 60)
+const animation = gsap.to(rotationObj, {
+  angle: -Math.PI * 2, // против часовой
+  duration: 90,
+  repeat: -1,
+  ease: "none",
+  onUpdate: () => {
+    images.forEach((img, i) => {
+
+      const baseAngle = (i / total) * Math.PI * 2;
+      const currentAngle = baseAngle + rotationObj.angle;
+
+      const x = centerX + radius * Math.cos(currentAngle) - img.offsetWidth / 2;
+      const y = centerY + radius * Math.sin(currentAngle) - img.offsetHeight / 2;
+
+      gsap.set(img, { x, y });
     });
   }
+});
 
-  float();
+// hover pause
+images.forEach(img => {
+  img.addEventListener("mouseenter", () => animation.pause());
+  img.addEventListener("mouseleave", () => animation.resume());
 });
 
 document.querySelectorAll(".project__item").forEach((card) => {

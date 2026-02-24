@@ -117,13 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	hideModal('.modal__call .modal__overlay', '.modal__call')
 	hideModal('.modal__call .modal__close', '.modal__call')
 
-	showModal('.exp__item', '.modal__exp')
-	hideModal('.modal__exp .modal__overlay', '.modal__exp')
-	hideModal('.modal__exp .modal__close', '.modal__exp')
-
-	showModal('.reviews__item .more', '.modal__reviews')
-	hideModal('.modal__reviews .modal__overlay', '.modal__reviews')
-	hideModal('.modal__reviews .modal__close', '.modal__reviews')
 
 	// EXP MODAL
 	const slidesExp = document.querySelectorAll('.exp__item');
